@@ -12,12 +12,405 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<style>
+			body {
+				background-color: #262626!important;
+			}
+			.reveal .controls {
+				color: #3178c6; /* Цвет стрелок */
+			}
+			.blue {
+				color: #3178c6!important;
+			}
+
+			.flex-column {
+				display: flex !important;
+				flex-direction: column;
+			}
+
+			.ts {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 2</section>
-				<section>Slide 2</section>
+
+				<section data-transition="fade">
+					<img src="dist/assets/ts-lettermark-white.png" alt="ts logo">
+				</section>
+
+				<section>
+					<h3 class="blue" style="text-transform: uppercase; font-weight: bold">The purpose:</h3>
+				talk about the key features of TypeScript and show its advantages through examples.
+				</section>
+
+				<section>
+
+					<section style="
+					background-image: url('./dist/assets/TS-JS.png');
+					background-repeat: no-repeat;
+					background-size: contain;
+					background-color: #011f3e;
+					background-position: center;
+					width: 100%;
+					height: 100%" >
+						<div class="ts">
+							<p><span class="blue">TypeScript</span> — is a superset of <span style="color: yellow">JavaScript</span> with the addition of static typing.</p>
+							<p style="margin: 0; font-size: 36px; padding: 10px">
+								<span class = "fragment fade-up">
+									Detecting errors in code without running it is referred to as <span class="blue">static checking</span>.
+								</span>
+								<span class = "fragment fade-up">
+									TypeScript checks a program for errors before execution, and does so based on the kinds of values, making it a <span class="blue">static type checker</span>.
+								</span>
+							</p>
+						</div>
+					</section>
+
+					<section>
+						<ul class="flex-column" style="gap: 25px">
+							<li>TypeScript was developed by Microsoft and was introduced in 2012.</li>
+							<li class = "fragment fade-up">The developer of TypeScript is Anders Hejlsberg, who previously created Turbo Pascal, Delphi and C#.</li>
+							<li class = "fragment fade-up">The language specifications are open and published under the Open Web Foundation Specification Agreement (Ovf 1.0).</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<section>Why do we need use <span class="blue">TypeScript?</span></section>
+					<section>
+						<h4>Disadvantages of <span style="color: yellow">javascript:</span></h4>
+						<ul class="flex-column" style="gap: 10px">
+							<li class = "fragment fade-up">Type errors are detected only in runtime.</li>
+							<li class = "fragment fade-up">The difficulty of supporting large projects.</li>
+							<li class = "fragment fade-up">It's easy to make typos and implicit bugs.</li>
+							<li class = "fragment fade-up">Lack of strict structure.</li>
+							<li class = "fragment fade-up">Problems with auto-completion and documentation.</li>
+							<li class = "fragment fade-up">The IDE cannot accurately predict the types of variables. Hints and code navigation are worse.</li>
+						</ul>
+					</section>
+					<section>
+						<h4>Advantages of <span class="blue">typescript:</span></h4>
+						<ul class="flex-column" style="gap: 10px">
+							<li class = "fragment fade-up">Static typing helps to find errors at the development stage before code execution.</li>
+							<li class = "fragment fade-up">Improves code readability and maintainability.</li>
+							<li class = "fragment fade-up">It is suitable for large projects due to its strict structure.</li>
+							<li class = "fragment fade-up">Improved IDE support (auto-completion, refactoring).</li>
+							<li class = "fragment fade-up">JavaScript compatibility (any JS code is a valid TS code).</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section><span class="blue">Types</span> and syntax</section>
+					<section>
+						<p>In addition to all the basic types that <span style="color: yellow">JavaScript</span> has, <span class="blue">TypeScript</span> has special types:</p>
+						<ul class="flex-column">
+							<li class = "fragment fade-up">Any</li>
+							<li class = "fragment fade-up">Unknown</li>
+							<li class = "fragment fade-up">Void</li>
+							<li class = "fragment fade-up">Never</li>
+						</ul>
+					</section>
+
+					<section>
+						<p>Explicit indication of types</p>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								const name: string = 'Alex';
+								const age: number = 25;
+								let a: any = 'string';
+								a = 10;
+
+								function hello(name: unknown): void {
+									if(typeof name === 'string') {
+										console.log('Hello' + ' ' + name)
+									};
+								}
+
+								function throwError(message: string): never {
+								  throw new Error(message);
+								}
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<p>Types of objects and arrays</p>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								type Person = { name: string; age: number }
+								const person: Person = { name: 'Bob', age: 25 }
+
+								interface User {
+									id: number,
+									name: string,
+									email?: string // optional property
+								}
+								const user1: User = { id: 1, name: Jane }
+
+								const fruits: string[] = ['apple', 'banana', 'orange'];
+								const numbers: Array &lt;Any&gt; = [1, true, 'red', null];
+							</code>
+						</pre>
+					</section>
+
+					<section>Union types and intersections</section>
+
+					<section>
+						<p>Union types</p>
+						<pre class="fragment fade-up">
+							<code data-trim data-noescape class="language-typescript">
+								function printId(id: number | string) {
+  								console.log(`ID: ${id}`);
+								}
+
+								printId(101);      // ✅
+								printId("abc123"); // ✅
+								printId(true);     // ❌ Error: boolean is not a number | string
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<p>Intersection</p>
+						<pre class="fragment fade-up">
+							<code data-trim data-noescape class="language-typescript">
+								type User = {
+									name: string;
+									age: number;
+								};
+
+								type Admin = { role: string };
+
+								type SuperUser = User & Admin;
+
+								const superUser: SuperUser = {
+									name: "Alice",
+									age: 30,
+									role: "admin",
+								};
+							</code>
+						</pre>
+					</section>
+
+
+				</section>
+
+				<section>
+					<section>Classes in <span class="blue">TypeScript</span></section>
+					<section>
+						<p>A class is both a value and a type</p>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								class Car {
+									public brand: string,
+									private year: number
+
+									constructor(brand: string, year: number) {
+									this.brand = brand;
+									this.year = year;
+									}
+								}
+
+								// Using a class as a type
+								const myCar: Car = new Car("Toyota", 2023);
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p>In the classes use the following access modifiers:</p>
+						<ul class="flex-column">
+							<li class = "fragment fade-up">Public</li>
+							<li class = "fragment fade-up">Private</li>
+							<li class = "fragment fade-up">Protected</li>
+						</ul>
+					</section>
+					<section>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								class Person {
+								name: string;        // Public property (by default)
+								private age: number; // Private (access only inside the class)
+
+								constructor(name: string, age: number) {
+									this.name = name;
+									this.age = age;
+								}
+
+								public greet() {     // Public method
+									console.log(`Hello, I'm ${this.name}`);
+								}
+							}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								class Employee extends Person {
+								protected salary: number;  // Available in subclasses
+
+								constructor(name: string, age: number, salary: number) {
+									super(name, age);
+									this.salary = salary;
+								}
+
+								showSalary() {
+									console.log(this.salary);  // ✅ Access to the protected field
+									// console.log(this.age);  // ❌ Error: private from parent
+								}
+							}
+							</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<section><span class="blue">Utility types</span> — pre-built tools for type transformations.</section>
+
+					<section>
+						<p>Purpose of use:</p>
+						<ul>
+							<li class = "fragment fade-up">Simplify working with types.</li>
+							<li class = "fragment fade-up">Increased code reuse.</li>
+							<li class = "fragment fade-up">Reducing the likelihood of errors when working with types.</li>
+						</ul>
+					</section>
+
+					<section>
+						<span class="blue">Partial<span style="color: darkgoldenrod"> &lt;Type&gt;</span></span> — makes all type properties optional.
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								interface User {
+									name: string;
+									age: number;
+								}
+
+								type PartialUser = Partial&lt;User&gt;;
+
+								// {
+								// 	name?: string;
+								// 	age?: number;
+								// }
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<span class="blue">Pick<span style="color: darkgoldenrod"> &lt;Type, Keys&gt;</span></span> — creates a new type containing only the specified keys from the Type.
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								interface Todo {
+									title: string;
+									description: string;
+									completed: boolean;
+								}
+								type TodoPreview = Pick&lt;Todo, "title" | "completed"&gt;;
+
+								// {
+								//	title: string;
+								//  completed: boolean;
+								// }
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<span class="blue">Record<span style="color: darkgoldenrod"> &lt;Keys, Type&gt;</span></span> — creates an object type where keys are of type &lt;Keys&gt; and values are of type &lt;Type&gt;.
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								type Colors = "red" | "green" | "blue";
+
+								type RGB = Record&lt;Colors, number&gt;;
+
+								// { red: number; green: number; blue: number; }
+							</code>
+						</pre>
+					</section>
+
+					<section>
+						<span class="blue">Exclude<span style="color: darkgoldenrod"> &lt;UnionType, ExcludedMembers&gt;</span></span> — excludes the specified union types.
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								type T0 = Exclude<"a" | "b" | "c", "a">; // "b" | "c"
+							</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<section><span class="blue">Generics</span> — universal types for creating flexible code.</section>
+					<section>Generics allows you to create components (functions, classes, interfaces) that can work with any type of data, while maintaining strict typing.</section>
+					<section>
+						<h3>How do <span class="blue">Generics</span> work?</h3>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								function identity&lt;T&gt;(arg: T): T {
+  								return arg;
+								}
+							</code>
+						</pre>
+						<p><span style="color: darkgoldenrod">&lt;T&gt;</span> is a type parameter, where <span style="color: darkgoldenrod">T</span> is a type symbol (you can use any name).</p>
+					</section>
+					<section>
+						<p>Also, we can specify several type parameters</p>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								function combine&lt;T, U&gt;(first: T, second: U): [T, U] {
+  								return [first, second];
+								}
+
+								const result = combine(1, "test"); // [1, "test"]
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p>We can limit the allowed types using the "extends" or "keyof" keyword. Or we can combine it.</p>
+						<pre>
+							<code data-trim data-noescape class="language-typescript">
+								function getKey&lt;T extends object, K extends keyof T&gt;
+								(obj: T, key: K): T[K] {
+  								return obj[key];
+								}
+
+								const user = { id: 1, name: "Alice" };
+								const id = getKey(user, "id"); // id: number
+								const name = getKey(user, "name"); // name: string
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h4><span class="blue">Advantages</span> of using generics:</h4>
+						<ul class="flex-column">
+							<li>Flexibility</li>
+							<li>Type safety</li>
+							<li>Improved readability</li>
+							<li>Code reuse</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<p>In conclusion, we can say that <span class="blue">TypeScript:</span></p>
+					<ul class="flex-column">
+						<li class = "fragment fade-up">Improves code security</li>
+						<li class = "fragment fade-up">Provides flexibility and versatility</li>
+						<li class = "fragment fade-up">Improved code readability and support</li>
+						<li class = "fragment fade-up">Provides support for modern development practices</li>
+						<li class = "fragment fade-up">Provides advantages for teamwork</li>
+					</ul>
+				</section>
+
+				<section><h1>Thank <span class="blue">you</span> for watching!</h1></section>
+				
 			</div>
 		</div>
 
